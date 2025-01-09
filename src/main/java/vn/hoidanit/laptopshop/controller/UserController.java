@@ -5,22 +5,13 @@ import org.springframework.web.bind.annotation.RestController;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-// @Controller
-// public class UserController {
-
-// @RequestMapping("/")
-// public String getHomepage() {
-// return "MVC architecture";
-// }
-
-// }
-
-@RestController
+@Controller
 public class UserController {
     private UserService userService;
 
@@ -28,8 +19,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
+    @RequestMapping("/")
     public String getHomepage() {
-        return this.userService.handleHello();
+        return "wellcome";
     }
+
+    @RequestMapping("/admin/users")
+    public String getUser(Model model) {
+        String test = this.userService.handleHello();
+        model.addAttribute("data", test);
+        model.addAttribute("tannq", "hjghfdjghdf");
+        return "/admin/user/create";
+    }
+
 }
