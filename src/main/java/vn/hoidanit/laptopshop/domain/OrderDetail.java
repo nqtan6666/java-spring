@@ -17,11 +17,11 @@ public class OrderDetail {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private long orderId;
+    private Order orderId;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
-    private long productId;
+    private Product productId;
 
     @Override
     public String toString() {
@@ -37,30 +37,6 @@ public class OrderDetail {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(long orderId) {
-        this.orderId = orderId;
-    }
-
-    public long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(long productId) {
-        this.productId = productId;
-    }
-
-    public long getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(long quantity) {
-        this.quantity = quantity;
     }
 
 }

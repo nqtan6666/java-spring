@@ -8,6 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,8 +24,7 @@ public class Order {
     private User user;
 
     // order_details id
-    @ManyToOne()
-    @JoinColumn(name = "order")
+    @OneToMany(mappedBy = "orderId")
     private List<OrderDetail> orderDetails;
 
     public long getId() {
