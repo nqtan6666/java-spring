@@ -53,7 +53,23 @@
                                                 <form:input type="text" class="form-control" path="address"
                                                     placeholder="Enter address" />
                                             </div>
-                                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                            <div class="form-group mt-3">
+                                                <label>Role</label>
+                                                <select class="form-select">
+                                                    <option value="1">Admin</option>
+                                                    <option value="2">User</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <label>Avatar</label>
+                                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
+                                                    id="avatarFile">
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <img style="display: none;" src="" alt="" class="img-thumbnail"
+                                                    id="avatarPreview">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary mt-3">Create</button>
                                         </form:form>
                                     </div>
                                 </div>
@@ -72,6 +88,24 @@
                 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js"
                     crossorigin="anonymous"></script>
                 <script src="/js/datatables-simple-demo.js"></script>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        $("#avatarFile").on("change", function (event) {
+                            var output = $("#avatarPreview");
+
+                            if (this.files.length > 0) {
+                                var objectURL = URL.createObjectURL(this.files[0]);
+                                output.attr("src", objectURL).css("display", "block");
+                                output.on("load", function () {
+                                    URL.revokeObjectURL(objectURL);
+                                });
+                            } else {
+                                output.attr("src", "").css("display", "none");
+                            }
+                        });
+                    });
+                </script>
             </body>
 
             </html>

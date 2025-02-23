@@ -21,7 +21,15 @@
                 <jsp:include page="../layout/sidebar.jsp" />
                 <div id="layoutSidenav_content">
                     <main>
-                        prodct
+                        <div class="container-fluid px-4">
+                            <h1 class="mt-4">Manage Products</h1>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Products</li>
+                                </ol>
+                            </nav>
+                        </div>
                     </main>
                     <jsp:include page="../layout/footer.jsp" />
                 </div>

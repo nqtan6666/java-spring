@@ -23,10 +23,17 @@
                     <div id="layoutSidenav_content">
                         <main>
                             <div class="container p-2">
+                                <h1 class="">Manage Users</h1>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Users</li>
+                                    </ol>
+                                </nav>
                                 <div class="row">
                                     <div class="col-12 mx-auto">
                                         <div class="d-flex justify-content-between mb-2">
-                                            <h2>List User</h2>
+                                            <h3>List User</h3>
                                             <a href="/admin/users/create" class="btn btn-primary">
                                                 Create user
                                             </a>
