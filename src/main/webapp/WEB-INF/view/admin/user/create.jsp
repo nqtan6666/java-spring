@@ -27,7 +27,8 @@
                                     <div class="col-md-6 col-12 mx-auto">
                                         <h3>Create User</h3>
                                         <hr>
-                                        <form:form method="post" action="/admin/users/create" modelAttribute="newUser">
+                                        <form:form method="post" action="/admin/users/create" modelAttribute="newUser"
+                                            enctype="multipart/form-data">
                                             <div class="form-group mt-3">
                                                 <label>Email Address</label>
                                                 <form:input type="email" class="form-control" path="email"
@@ -54,16 +55,16 @@
                                                     placeholder="Enter address" />
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label>Role</label>
-                                                <select class="form-select">
-                                                    <option value="1">Admin</option>
-                                                    <option value="2">User</option>
-                                                </select>
+                                                <label for="roleSelect">Role</label>
+                                                <form:select class="form-select" id="roleSelect" path="role.id">
+                                                    <form:option value="1" label="Admin" />
+                                                    <form:option value="2" label="User" />
+                                                </form:select>
                                             </div>
                                             <div class="form-group mt-3">
                                                 <label>Avatar</label>
-                                                <input type="file" accept=".png, .jpg, .jpeg" class="form-control"
-                                                    id="avatarFile">
+                                                <input type="file" accept=".png, .jpg, .jpeg" name="uploadFile"
+                                                    class="form-control" id="avatarFile">
                                             </div>
                                             <div class="form-group mt-3">
                                                 <img style="display: none;" src="" alt="" class="img-thumbnail"

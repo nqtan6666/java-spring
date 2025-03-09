@@ -1,24 +1,30 @@
 package vn.hoidanit.laptopshop.controller;
 
 import vn.hoidanit.laptopshop.domain.User;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class UserController {
     private final UserService userService;
+    private final UploadService uploadService;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @RequestMapping("/")
@@ -40,17 +46,20 @@ public class UserController {
         return "/admin/user/show"; // return view
     }
 
-    @RequestMapping("/admin/users/create")
+    @GetMapping("/admin/users/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("newUser", new User());
         return "/admin/user/create";
     }
 
-    @RequestMapping(value = "/admin/users/create", method = RequestMethod.POST)
-    public String createUser(Model model, @ModelAttribute("newUser") User user) {
-        this.userService.saveUser(user);
-        List<User> users = this.userService.getAllUsers();
-        model.addAttribute("listUser", users);
+    @PostMapping("/admin/users/create")
+    public String createUser(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("uploadFile") MultipartFile file) {
+        String fileName = this.uploadService.uploadFile(file, "avatar");
+        // user.setAvatar(fileName);
+        // this.userService.saveUser(user);
+        // List<User> users = this.userService.getAllUsers();
+        // model.addAttribute("listUser", users);
         return "redirect:/admin/users"; // return url
     }
 
