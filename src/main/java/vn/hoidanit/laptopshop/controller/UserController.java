@@ -6,6 +6,9 @@ import vn.hoidanit.laptopshop.service.UserService;
 
 import java.util.List;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,9 +25,12 @@ public class UserController {
     private final UserService userService;
     private final UploadService uploadService;
 
-    public UserController(UserService userService, UploadService uploadService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserController(UserService userService, UploadService uploadService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.uploadService = uploadService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @RequestMapping("/")
@@ -56,10 +62,11 @@ public class UserController {
     public String createUser(Model model, @ModelAttribute("newUser") User user,
             @RequestParam("uploadFile") MultipartFile file) {
         String fileName = this.uploadService.uploadFile(file, "avatar");
-        // user.setAvatar(fileName);
-        // this.userService.saveUser(user);
-        // List<User> users = this.userService.getAllUsers();
-        // model.addAttribute("listUser", users);
+        user.setAvatar(fileName);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        this.userService.saveUser(user);
+        List<User> users = this.userService.getAllUsers();
+        model.addAttribute("listUser", users);
         return "redirect:/admin/users"; // return url
     }
 
